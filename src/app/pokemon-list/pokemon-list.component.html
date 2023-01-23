@@ -1,0 +1,170 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg">
+      <div class="pt-5">
+        <form mat-form-field>
+          <div class="text-center">
+            <h3 class="text-secondary">
+              ¡Input the Pokémon name you wish to search!
+            </h3>
+          </div>
+          <input
+            class="w-100 mb-3"
+            type="text"
+            [(ngModel)]="selectedPokemon"
+            [formControl]="myControl"
+            matInput
+            placeholder="Charmander"
+            [matAutocomplete]="auto"
+            (keyup)="applyFilter($event)"
+            #input
+          />
+          <mat-autocomplete
+            #auto="matAutocomplete"
+            [displayWith]="AutoCompleteDisplay"
+          >
+            <mat-option
+              (click)="applyFilter($event)"
+              *ngFor="let poke of filteredOptions | async"
+              [value]="poke.toLowerCase()"
+            >
+              {{ poke.charAt(0).toUpperCase() + poke.slice(1) }}
+            </mat-option>
+          </mat-autocomplete>
+        </form>
+      </div>
+      <div>
+        <table class="w-100" mat-table matSort [dataSource]="dataSource">
+          <ng-container matColumnDef="sprite">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Sprite</th>
+            <td mat-cell *matCellDef="let row">
+              <img [src]="row.sprite" alt="" style="width: 35%" />
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+            <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+          </ng-container>
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+            <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+          </ng-container>
+          <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+            <td mat-cell *matCellDef="let row">{{ row.type }}</td>
+          </ng-container>
+          <ng-container matColumnDef="height">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Height</th>
+            <td mat-cell *matCellDef="let row">{{ row.height }}</td>
+          </ng-container>
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let row">
+              <button
+                type="button"
+                class="btn btn-outline-secondary btn-sm"
+                (click)="
+                  seeMore(row.name.charAt(0).toLowerCase() + row.name.slice(1))
+                "
+              >
+                See more
+              </button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          <tr *matNoDataRow>
+            <td class="mat-cell" colspan="4">
+              The filter does not match any item in data for this text
+              {{ input.value }}
+            </td>
+          </tr>
+        </table>
+        <mat-paginator
+          [pageSizeOptions]="[13, 23, 35]"
+          aria-labels="select page of pokemons"
+        ></mat-paginator>
+      </div>
+    </div>
+    <div class="col-lg py-5">
+      <div class="tarjeta m-auto">
+        <div class="card carta-zoom">
+          <img
+            *ngIf="pokemon"
+            [src]="pokemon.sprites.other.home.front_default"
+            class="card-img-top"
+            alt="Default pokemon"
+          />
+          <div *ngIf="pokemon" class="card-body d-flex justify-content-center">
+            <h2 class="card-text">
+              {{ pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1) }}
+              -&nbsp;
+            </h2>
+            <h2 class="card-text">
+              {{
+                pokemon.types[0].type.name.charAt(0).toUpperCase() +
+                  pokemon.types[0].type.name.slice(1)
+              }}
+            </h2>
+          </div>
+          <div>
+            <canvasjs-chart [options]="chart"></canvasjs-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="text-center m-5">
+  <h1 style="font-size: 36px">Let's count the Pokémon alphabet</h1>
+</div>
+<div>
+  <div class="d-flex justify-content-center tabla-alfabeto">
+    <div style="width: 70%">
+      <table
+        class="table table-bordered table-striped table-hover align-middle mb-5 bg-white"
+      >
+        <thead class="bg-light">
+          <tr>
+            <th scope="col">Letter</th>
+            <th scope="col">Count</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let pokeCount of sortedMap | keyvalue">
+          <tr class="">
+            <td>
+              <div class="d-flex align-items-center p-2">
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">
+                    {{ pokeCount.key }}
+                  </p>
+                </div>
+              </div>
+            </td>
+            <td>
+              {{ pokeCount.value }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="row d-flex text-center">
+  <div class="col-lg imagen1">
+    <img
+      src="../../assets/img/imagen-1.jpg"
+      class="avatar1"
+      alt=""
+      style="width: 25%"
+    />
+  </div>
+  <div class="col-lg imagen2">
+    <img
+      src="../../assets/img/imagen-2.jpg"
+      class="avatar2"
+      alt=""
+      style="width: 35%"
+    />
+  </div>
+</div>
