@@ -37,7 +37,7 @@ pagination-controls {
 }
 
 .carta-zoom:hover {
-  transform: scale(1.25);
+  transform: scale(1.05);
 }
 
 @media screen and (max-width: 1024px) {
