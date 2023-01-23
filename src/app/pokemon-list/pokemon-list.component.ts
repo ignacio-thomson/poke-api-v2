@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataService } from '../services/data.service';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { filter, map, startWith } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,7 +11,6 @@ export interface PokemonData {
   name: string,
   id: number,
   type: string,
-  height: number
 }
 
 @Component({
@@ -21,23 +20,21 @@ export interface PokemonData {
 })
 export class PokemonListComponent implements OnInit {
 
-  pokemons: any[] = [];
   pokemonsLetters: any[] = [];
   pokemon: any = "";
   pokemonByName: any = "";
+  // Pokemon Alphabet Sorted Map
   sortedMap: any = {};
-  offset: number = 0;
-  defaultLimit: number = 10;
-  page: number = 1;
-  totalPokemons: number = 0;
+  // Charts
   chart: any = "";
   chartByName: any = "";
   selectedPokemon: any;
+  // Search bar suggestions
   myControl = new FormControl();
   allPokemons: any[] = [];
-// ----------------------------------------------------------------------
+  // Table, pagination, sort and filter
   filteredOptions: Observable<string[]> | undefined;
-  displayedColumns: string[] = ["sprite", "name", "id", "type", "height", "actions"]
+  displayedColumns: string[] = ["sprite", "name", "id", "type", "actions"]
   dataSource!: MatTableDataSource<PokemonData>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -53,13 +50,11 @@ export class PokemonListComponent implements OnInit {
             name: '',
             id: 0,
             type: '',
-            height: 0
           }
           filteredData.sprite = data.sprites.front_default
           filteredData.name = data.name.charAt(0).toUpperCase() + data.name.slice(1);
           filteredData.id = data.id;
           filteredData.type = data.types[0].type.name.charAt(0).toUpperCase() + data.types[0].type.name.slice(1);
-          filteredData.height = data.height;
           this.poke = filteredData;
           this.pokes.push(this.poke);
           this.dataSource = new MatTableDataSource(this.pokes);
@@ -70,17 +65,7 @@ export class PokemonListComponent implements OnInit {
     });
   }
 
-  applyFilter(event: Event){
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if(this.dataSource.paginator){
-      this.dataSource.paginator.firstPage();
-    }
-  }
-
   ngOnInit(): void {
-    // this.getPokemons();
     this.seeMore("bulbasaur");
     this.getPokemonByName("charmander");
     this.getAllPokemons();
@@ -109,18 +94,14 @@ export class PokemonListComponent implements OnInit {
   return undefined;
   }
 
-  // async getPokemons() {
-  //   this.dataService.getPokemons(this.offset = (this.page * this.defaultLimit) - this.defaultLimit, this.defaultLimit)
-  //     .subscribe((response: any) => {
-  //       this.totalPokemons = response.count;
-  //       response.results.forEach((element: any) => {
-  //         this.dataService.getMoreData(element.name)
-  //           .subscribe((res: any) => {
-  //             this.pokemons.push(res);
-  //           });
-  //       });
-  //     });
-  // }
+  applyFilter(event: Event){
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if(this.dataSource.paginator){
+      this.dataSource.paginator.firstPage();
+    }
+  }
 
   getAllPokemons(){
     this.dataService.getAllPokemons().subscribe((resp: any) => {

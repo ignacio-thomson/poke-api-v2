@@ -32,27 +32,62 @@ pagination-controls {
   width: 75%;
 }
 
+.carta-zoom {
+  transition: transform 0.2s;
+}
+
+.carta-zoom:hover {
+  transform: scale(1.25);
+}
+
 @media screen and (max-width: 1024px) {
   .tarjeta {
     width: 75%;
   }
+  .carta-zoom {
+    transition: none;
+  }
+
+  .carta-zoom:hover {
+    transform: none;
+  }
 }
 
-.imagen1 {
+.contenedor-imagen1 {
   width: 25%;
   text-align: end;
 }
 
+.contenedor-imagen1 img {
+  width: 25%;
+}
+
+.contenedor-imagen2 {
+  width: 35%;
+  text-align: start;
+}
+
+.contenedor-imagen2 img {
+  width: 35%;
+}
+
 @media screen and (max-width: 1024px) {
-  .imagen1 {
+  .contenedor-imagen1 {
     width: 50%;
     text-align: end;
   }
-}
-
-.imagen2 {
-  width: 35%;
-  text-align: start;
+  .contenedor-imagen1 img {
+    width: 53%;
+    text-align: start;
+  }
+  .contenedor-imagen2 {
+    width: 50%;
+    text-align: start;
+  }
+  .contenedor-imagen2 img {
+    width: 70%;
+    text-align: start;
+  }
 }
 
 .avatar1 {
@@ -63,13 +98,6 @@ pagination-controls {
   animation: float 4s ease-in-out infinite;
 }
 
-@media screen and (max-width: 1024px) {
-  .imagen2 {
-    width: 50%;
-    text-align: start;
-  }
-}
-
 input {
   width: 100%;
   padding: 12px 20px;
@@ -77,14 +105,6 @@ input {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-}
-
-.carta-zoom {
-  transition: transform 0.2s;
-}
-
-.carta-zoom:hover {
-  transform: scale(1.25);
 }
 
 .mat-table {

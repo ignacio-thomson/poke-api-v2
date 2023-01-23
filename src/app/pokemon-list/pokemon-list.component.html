@@ -36,7 +36,7 @@
       <div>
         <table class="w-100" mat-table matSort [dataSource]="dataSource">
           <ng-container matColumnDef="sprite">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Sprite</th>
+            <th mat-header-cell *matHeaderCellDef>Sprite</th>
             <td mat-cell *matCellDef="let row">
               <img [src]="row.sprite" alt="" style="width: 35%" />
             </td>
@@ -53,10 +53,6 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
             <td mat-cell *matCellDef="let row">{{ row.type }}</td>
           </ng-container>
-          <ng-container matColumnDef="height">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Height</th>
-            <td mat-cell *matCellDef="let row">{{ row.height }}</td>
-          </ng-container>
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef>Actions</th>
             <td mat-cell *matCellDef="let row">
@@ -67,7 +63,7 @@
                   seeMore(row.name.charAt(0).toLowerCase() + row.name.slice(1))
                 "
               >
-                See more
+                Details
               </button>
             </td>
           </ng-container>
@@ -75,13 +71,14 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
           <tr *matNoDataRow>
             <td class="mat-cell" colspan="4">
-              The filter does not match any item in data for this text
-              {{ input.value }}
+              The filter does not match any item in data for this text: "{{
+                input.value
+              }}"
             </td>
           </tr>
         </table>
         <mat-paginator
-          [pageSizeOptions]="[13, 23, 35]"
+          [pageSizeOptions]="[10, 20, 30]"
           aria-labels="select page of pokemons"
         ></mat-paginator>
       </div>
@@ -95,17 +92,41 @@
             class="card-img-top"
             alt="Default pokemon"
           />
-          <div *ngIf="pokemon" class="card-body d-flex justify-content-center">
-            <h2 class="card-text">
+          <div
+            *ngIf="pokemon"
+            class="card-body d-flex justify-content-center p-0"
+          >
+            <h2 class="card-text mb-2">
+              Name:
               {{ pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1) }}
               -&nbsp;
             </h2>
-            <h2 class="card-text">
+            <h2 class="card-text mb-2">
+              Type:
               {{
                 pokemon.types[0].type.name.charAt(0).toUpperCase() +
                   pokemon.types[0].type.name.slice(1)
               }}
             </h2>
+          </div>
+          <div class="d-flex justify-content-center mb-3">
+            <div>
+              <a
+                href="https://pokemon.fandom.com/es/wiki/{{
+                  pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
+                }}"
+                target="_blank"
+                class="text-light"
+                style="text-decoration: none"
+                ><button
+                  class="btn btn-danger btn-sm text-light"
+                  type="button"
+                  *ngIf="pokemonByName"
+                >
+                  Check the wiki
+                </button></a
+              >
+            </div>
           </div>
           <div>
             <canvasjs-chart [options]="chart"></canvasjs-chart>
@@ -115,6 +136,7 @@
     </div>
   </div>
 </div>
+<hr class="hr hr-blurry" />
 <div class="text-center m-5">
   <h1 style="font-size: 36px">Let's count the Pokémon alphabet</h1>
 </div>
@@ -150,21 +172,11 @@
     </div>
   </div>
 </div>
-<div class="row d-flex text-center">
-  <div class="col-lg imagen1">
-    <img
-      src="../../assets/img/imagen-1.jpg"
-      class="avatar1"
-      alt=""
-      style="width: 25%"
-    />
+<div class="row text-center">
+  <div class="col-lg contenedor-imagen1">
+    <img src="../../assets/img/imagen-1.jpg" class="avatar1" alt="" />
   </div>
-  <div class="col-lg imagen2">
-    <img
-      src="../../assets/img/imagen-2.jpg"
-      class="avatar2"
-      alt=""
-      style="width: 35%"
-    />
+  <div class="col-lg contenedor-imagen2">
+    <img src="../../assets/img/imagen-2.jpg" class="avatar2" alt="" />
   </div>
 </div>
