@@ -1,7 +1,7 @@
 - Bienvenidos a mi aplicación, Pokedéx, diseñada con el Framework Angular y los recursos de Angular Material (mat-table, mat-complete, etc).
 
-- Diseñé la aplicación de dos formas, una completamente apegada a los requerimientos técnicos (poke-technical) y otra con una
-  modificación meramente basada en gusto personal (poke-api).
+- Diseñé la aplicación de dos formas, una completamente apegada a los requerimientos técnicos (poke-api) y otra con una
+  modificación meramente basada en gusto personal (poke-technical).
 
 - Las aplicaciones fueron contenerizadas, junto con todas las dependencias necesarias para que estas funcionen en cualquier equipo/ambiente sin problemas.
 
