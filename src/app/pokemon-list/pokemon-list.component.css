@@ -40,6 +40,15 @@ pagination-controls {
   transform: scale(1.05);
 }
 
+@media screen and (max-width: 400px) {
+  .textocard {
+    font-size: 14px;
+  }
+  .botoncard {
+    margin-bottom: 0rem;
+  }
+}
+
 @media screen and (max-width: 1024px) {
   .tarjeta {
     width: 75%;
@@ -51,17 +60,18 @@ pagination-controls {
   .carta-zoom:hover {
     transform: none;
   }
+  .textocard {
+    font-size: 14px;
+  }
 }
 
 .contenedor-imagen1 {
   width: 25%;
   text-align: end;
 }
-
 .contenedor-imagen1 img {
   width: 25%;
 }
-
 .contenedor-imagen2 {
   width: 35%;
   text-align: start;

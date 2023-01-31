@@ -61,7 +61,8 @@
                 type="button"
                 class="btn btn-outline-secondary btn-sm"
                 (click)="
-                  seeMore(row.name.charAt(0).toLowerCase() + row.name.slice(1))
+                  seeMore(row.name.charAt(0).toLowerCase() + row.name.slice(1));
+                  updateChart(chart)
                 "
               >
                 Details
@@ -97,12 +98,12 @@
             *ngIf="pokemon"
             class="card-body d-flex justify-content-center p-0"
           >
-            <h2 class="card-text mb-2">
+            <h2 class="card-text mb-2 textocard">
               Name:
               {{ pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1) }}
               -&nbsp;
             </h2>
-            <h2 class="card-text mb-2">
+            <h2 class="card-text mb-2 textocard">
               Type:
               {{
                 pokemon.types[0].type.name.charAt(0).toUpperCase() +
@@ -129,8 +130,10 @@
               >
             </div>
           </div>
-          <div>
-            <canvasjs-chart [options]="chart"></canvasjs-chart>
+          <div class="chart-container">
+            <canvas id="myChart2" style="margin-bottom: 2rem">{{
+              chart
+            }}</canvas>
           </div>
         </div>
       </div>
